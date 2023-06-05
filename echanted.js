@@ -41,6 +41,8 @@ function echantedGroupModel(){
     echantedList.appendChild(echantedGroup);
 };
 
+echantedGroupModel()
+
 //监听-在末尾增加魔咒组
 echantedAddLast.addEventListener('click',() => {
     if (echantedList.children.length < 38){
@@ -348,7 +350,7 @@ function echantedPrint(Id,Level){
   };
   print += "]}";
 
-  if (isError == True){
+  if (isError == False){
     return print;
   }else{
     return "Error"};
@@ -369,6 +371,7 @@ submitEchanted.addEventListener('click', () => {
     }else{
 
       window.alert("魔咒不能为空：第"+ ( i + 1 ) + "条魔咒id为空");
+      isErrror = True;
       console.warn("[WARN] Echanted ID Is Empty : " + i);
       break;
     }
@@ -380,17 +383,27 @@ submitEchanted.addEventListener('click', () => {
   for (let i = 0; i < echantedList.children.length; i++) {
 
     const userInput = echantedList.children[i].children[1].value;
+    if (Number.isInteger(userInput)) {
 
-    if (userInput !== '') {
+      if (userInput !== '') {
 
       userInputEchantedLevel.push(userInput);
     }else{
 
       window.alert("魔咒不能为空：第"+ ( i + 1 ) + "条魔咒等级为空");
+      isErrror = True;
       console.warn("[WARN] Echanted Level Is Empty : " + i);
       break;
-    }
-  }
+    };
+    }else{
+
+      window.alert("魔咒类型不符合：第"+ ( i + 1 ) + "条魔咒等级不为数字");
+      isError = True;
+      console.warn("[WARN] Echanted Level Is NaN : " + i);
+      break;
+    };
+    
+  };
   console.log('[LOG] '+userInputEchantedLevel);
 
   userInputEchantedId = conversion(userInputEchantedId);
