@@ -334,7 +334,7 @@ function echantedPrint(Id,Level){
 
   }else {
     print += "{id:\"" + Id[0] + "\",lvl:" + Level[0] + "}";
-    for (let i = 0; i < Id.length; i++) {
+    for (let i = 1; i < Id.length; i++) {
       print += ",{id:\"" + Id[i] + "\",lvl:" + Level[i] + "}"
     }
 
