@@ -1,6 +1,5 @@
 /*JustBeginner 230528
 */
-
 //创建引用
 const echantedList = document.getElementById('echanted-list');
 const echantedAddLast = document.getElementById('echanted-add-last');
@@ -11,37 +10,42 @@ const printEchanted = document.getElementById('page-print');
 const namespace = "minecraft:";
 
 var echantedReturn = '';
+var isError = False ;
+
+function echantedGroupModel(){
+    const echantedGroup = document.createElement('div');
+    const echantedInput = document.createElement('input');
+       echantedInput.type = 'text';
+       echantedInput.id = 'echanted-id';
+       echantedInput.placeholder = '输入魔咒中文ID';
+    const echantedLevel = document.createElement('input');
+       echantedLevel.type = 'text';
+       echantedLevel.id = 'echanted-level';
+       echantedLevel.placeholder = '输入魔咒等级';
+    const echantedAdd = document.createElement('button');
+    const echantedAddText = document.createTextNode("+");
+        echantedAdd.type = 'button';
+        echantedAdd.id = 'echanted-add';
+        echantedAdd.appendChild(echantedAddText); 
+    const echantedRemove = document.createElement('button');
+    const echantedRemoveText = document.createTextNode("−");
+        echantedRemove.type = 'button';
+        echantedRemove.id = 'echanted-remove';
+        echantedRemove.appendChild(echantedRemoveText);
+
+        echantedGroup.appendChild(echantedInput);
+        echantedGroup.appendChild(echantedLevel);
+        echantedGroup.appendChild(echantedAdd);
+        echantedGroup.appendChild(echantedRemove);    
+
+    echantedList.appendChild(echantedGroup);
+};
 
 //监听-在末尾增加魔咒组
 echantedAddLast.addEventListener('click',() => {
     if (echantedList.children.length < 38){
 
-        const echantedGroup = document.createElement('div');
-        const echantedInput = document.createElement('input');
-            echantedInput.type = 'text';
-            echantedInput.id = 'echanted-id';
-            echantedInput.placeholder = '输入魔咒ID';
-        const echantedLevel = document.createElement('input');
-            echantedLevel.type = 'text';
-            echantedLevel.id = 'echanted-level';
-            echantedLevel.placeholder = '输入魔咒等级';
-        const echantedAdd = document.createElement('button');
-        const echantedAddText = document.createTextNode("+");
-            echantedAdd.type = 'button';
-            echantedAdd.id = 'echanted-add';
-            echantedAdd.appendChild(echantedAddText); 
-        const echantedRemove = document.createElement('button');
-        const echantedRemoveText = document.createTextNode("−");
-            echantedRemove.type = 'button';
-            echantedRemove.id = 'echanted-remove';
-            echantedRemove.appendChild(echantedRemoveText);
-
-            echantedGroup.appendChild(echantedInput);
-            echantedGroup.appendChild(echantedLevel);
-            echantedGroup.appendChild(echantedAdd);
-            echantedGroup.appendChild(echantedRemove);    
-
-        echantedList.appendChild(echantedGroup);
+        echantedGroupModel()
         console.info("[INFO] Add Group in the Last");
     }else {
         window.alert("最多不能超过38条魔咒！");
@@ -89,7 +93,7 @@ echantedList.addEventListener('click', function(parentAdd) {
       const echantedInput = document.createElement('input');
         echantedInput.type = 'text';
         echantedInput.id = 'echanted-id';
-        echantedInput.placeholder = '输入魔咒ID';
+        echantedInput.placeholder = '输入魔咒中文ID';
       const echantedLevel = document.createElement('input');
         echantedLevel.type = 'text';
         echantedLevel.id = 'echanted-level';
@@ -313,7 +317,9 @@ function conversion(Id){
         break;
 
       default:
-        Id[i] = namespace+"protection";
+        window.alert("魔咒ID是无效的！");
+        Id[i] = "ERROR";
+        isError = True ;
         console.warn("[WARN] Echanted ID Is Inexistent : " + Id[i]);
 
     };
@@ -329,6 +335,7 @@ function echantedPrint(Id,Level){
 
   let print = "{Enchantments:[";
   
+  
   if (Id.length == 1) {
     print += "{id:\"" + Id[0] + "\",lvl:" + Level[0] + "}";
 
@@ -341,7 +348,11 @@ function echantedPrint(Id,Level){
   };
   print += "]}";
 
-  return print;
+  if (isError == True){
+    return print;
+  }else{
+    return "Error"};
+  
 };
 
 //监听-点击按钮
