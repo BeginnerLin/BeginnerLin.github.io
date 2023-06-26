@@ -1,0 +1,20 @@
+#echanted-list div:last-child button{
+    background-color: #90FF90;
+}
+#echanted-list div:last-child button::after{
+    content: "+";
+    background-color: #90FF90;
+}
+
+#echanted-list div:not(:last-child) button{
+    background-color: #FF9090;
+}
+#echanted-list div:not(:last-child) button::after{
+    content: "×";
+    background-color: #FF9090;
+}
+
+#echanted-error{
+    display: inline-block;
+    margin: 2px;
+}
